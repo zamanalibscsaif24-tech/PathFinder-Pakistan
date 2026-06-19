@@ -380,11 +380,31 @@ img { max-width: 100%; display: block; }
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .hero h1 { font-size: 32px; }
+  .hero { padding: 56px 0 64px; }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 15px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: 1fr; }
-  .stats .container { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+  .stats .container { grid-template-columns: repeat(2, 1fr); }
+  .stat-card { border-right: none; border-bottom: 1px solid var(--grey-border); }
   .footer-grid { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
   .quiz-highlight { padding: 36px 24px; flex-direction: column; text-align: center; }
+  .section { padding: 48px 0; }
+  .quiz-card { padding: 24px 18px; }
+  .quiz-card h2 { font-size: 18px; }
+  .option-btn { padding: 14px 16px; font-size: 14px; }
+  .page-header { padding: 36px 0; }
+  .page-header h1 { font-size: 24px; }
+  .career-hero h1 { font-size: 26px; }
+  .result-card { flex-wrap: wrap; gap: 10px; }
+  .result-card .info { width: 100%; order: 2; padding: 0; }
+  .result-card .rank { order: 1; }
+  .result-card .pct { order: 3; width: auto; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .hero h1 { font-size: 24px; }
+  .quiz-card { padding: 20px 14px; }
 }
