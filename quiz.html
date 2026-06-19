@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Quiz — PathFinder Pakistan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">PF</div>
+      <div class="brand-text">
+        <span class="title">PathFinder Pakistan</span>
+        <span class="subtitle">Career Guidance Platform</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="careers.html">Career Explorer</a></li>
+        <li><a href="quiz.html" class="active">Career Quiz</a></li>
+        <li><a href="stories.html">Student Stories</a></li>
+      </ul>
+    </nav>
+    <a href="quiz.html" class="nav-cta">Start Quiz</a>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Rule-Based Career Quiz</span>
+    <h1>Find Careers That Match Your Strengths</h1>
+    <p>Answer 10 quick questions honestly. This is a simple logic-based matching system — not AI — based on your answers' weight toward each career.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="quiz-shell">
+
+      <div id="quiz-area">
+        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="quiz-card">
+          <div class="q-number" id="q-number">Question 1 of 10</div>
+          <h2 id="q-text"></h2>
+          <div id="q-options"></div>
+        </div>
+      </div>
+
+      <div id="result-area" style="display:none;">
+        <div class="section-head" style="margin-bottom: 28px;">
+          <span class="eyebrow">Your Results</span>
+          <h2>Your Top 3 Recommended Careers</h2>
+          <p>Based on your answers, here's what matches your strengths and interests best.</p>
+        </div>
+        <div id="result-list"></div>
+        <div style="text-align:center; margin-top: 28px;">
+          <button class="btn btn-navy" id="retake-btn" style="border:none;">Retake Quiz</button>
+          <a href="careers.html" class="btn btn-primary">Explore These Careers</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="disclaimer">
+      This quiz uses a simple rule-based scoring system based on your answers. It is meant to guide exploration, not replace personal research or counselling. © 2026 PathFinder Pakistan.
+      <br><br>Designed &amp; developed by <strong style="color:#C9D3E0;">Zamsha Developers</strong> — Contact: <a href="mailto:zamanali.dev1@gmail.com" style="color:#C9D3E0;">zamanali.dev1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/careers-data.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+  let currentQ = 0;
+  const answers = [];
+
+  function renderQuestion() {
+    const question = QUIZ_QUESTIONS[currentQ];
+    document.getElementById("q-number").textContent = `Question ${currentQ + 1} of ${QUIZ_QUESTIONS.length}`;
+    document.getElementById("q-text").textContent = question.q;
+    document.getElementById("progress-fill").style.width = `${(currentQ / QUIZ_QUESTIONS.length) * 100}%`;
+
+    const optionsDiv = document.getElementById("q-options");
+    optionsDiv.innerHTML = "";
+    question.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opt.text;
+      btn.addEventListener("click", () => selectAnswer(i));
+      optionsDiv.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(index) {
+    answers[currentQ] = index;
+    currentQ++;
+    if (currentQ < QUIZ_QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  function showResults() {
+    document.getElementById("progress-fill").style.width = "100%";
+    document.getElementById("quiz-area").style.display = "none";
+    document.getElementById("result-area").style.display = "block";
+
+    const top3 = calculateResults(answers);
+    const list = document.getElementById("result-list");
+    list.innerHTML = top3.map((r, i) => {
+      const careerData = CAREERS.find(c => c.name === r.career);
+      return `
+      <div class="result-card">
+        <div class="rank">#${i + 1}</div>
+        <div class="info">
+          <h3>${r.career}</h3>
+          <div class="bar-track"><div class="bar-fill" style="width:${r.percentage}%"></div></div>
+        </div>
+        <div class="pct">${r.percentage}%</div>
+      </div>`;
+    }).join("") + `
+      <div style="margin-top: 20px; display:flex; gap: 12px; flex-wrap: wrap; justify-content:center;">
+        ${top3.map(r => {
+          const c = CAREERS.find(c => c.name === r.career);
+          return c ? `<a href="career.html?id=${c.id}" class="btn btn-outline" style="border-color: var(--navy); color: var(--navy);">View ${r.career} Guide</a>` : "";
+        }).join("")}
+      </div>
+    `;
+  }
+
+  document.getElementById("retake-btn").addEventListener("click", () => {
+    currentQ = 0;
+    answers.length = 0;
+    document.getElementById("result-area").style.display = "none";
+    document.getElementById("quiz-area").style.display = "block";
+    renderQuestion();
+  });
+
+  renderQuestion();
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Guide — PathFinder Pakistan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">PF</div>
+      <div class="brand-text">
+        <span class="title">PathFinder Pakistan</span>
+        <span class="subtitle">Career Guidance Platform</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="careers.html" class="active">Career Explorer</a></li>
+        <li><a href="quiz.html">Career Quiz</a></li>
+        <li><a href="stories.html">Student Stories</a></li>
+      </ul>
+    </nav>
+    <a href="quiz.html" class="nav-cta">Start Quiz</a>
+  </div>
+</header>
+
+<section class="career-hero" id="career-hero">
+  <div class="container">
+    <span class="category-tag" id="c-category">Loading...</span>
+    <h1 id="c-name"></h1>
+    <p id="c-summary"></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="detail-grid">
+      <div>
+        <div class="detail-block">
+          <h2>What does this profession do?</h2>
+          <p id="c-whatTheyDo"></p>
+        </div>
+        <div class="detail-block">
+          <h2>Required Education (After Intermediate)</h2>
+          <ul id="c-education"></ul>
+        </div>
+        <div class="detail-block">
+          <h2>Recommended Universities in Pakistan</h2>
+          <ul id="c-universities"></ul>
+        </div>
+        <div class="detail-block">
+          <h2>Skills Required</h2>
+          <ul id="c-skills"></ul>
+        </div>
+        <div class="detail-block">
+          <h2>Step-by-Step Roadmap</h2>
+          <div id="c-roadmap"></div>
+        </div>
+        <div class="detail-block">
+          <h2>Career Opportunities</h2>
+          <ul id="c-opportunities"></ul>
+        </div>
+      </div>
+      <div>
+        <div class="sidebar-box">
+          <h4>Approx. Salary Range (PKR/month)</h4>
+          <div class="big-stat" id="c-salary"></div>
+        </div>
+        <div class="sidebar-box">
+          <h4>Suited For Streams</h4>
+          <div id="c-streams"></div>
+        </div>
+        <div class="advice-box">
+          <h4>Advice for Students</h4>
+          <p id="c-advice"></p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="careers.html" class="btn btn-navy">← Back to Career Explorer</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="disclaimer">
+      Disclaimer: PathFinder Pakistan provides general career guidance for informational purposes only. Salary figures and university lists are approximate and may change. © 2026 PathFinder Pakistan.
+      <br><br>Designed &amp; developed by <strong style="color:#C9D3E0;">Zamsha Developers</strong> — Contact: <a href="mailto:zamanali.dev1@gmail.com" style="color:#C9D3E0;">zamanali.dev1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/careers-data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const c = CAREERS.find(c => c.id === id);
+
+  if (!c) {
+    document.querySelector(".container").innerHTML = `<p>Career not found. <a href="careers.html">Return to Career Explorer</a>.</p>`;
+  } else {
+    document.title = c.name + " — PathFinder Pakistan";
+    document.getElementById("c-category").textContent = c.category;
+    document.getElementById("c-name").textContent = c.name;
+    document.getElementById("c-summary").textContent = c.summary;
+    document.getElementById("c-whatTheyDo").textContent = c.whatTheyDo;
+    document.getElementById("c-education").innerHTML = c.education.map(e => `<li>${e}</li>`).join("");
+    document.getElementById("c-universities").innerHTML = c.universities.map(u => `<li>${u}</li>`).join("");
+    document.getElementById("c-skills").innerHTML = c.skills.map(s => `<li>${s}</li>`).join("");
+    document.getElementById("c-opportunities").innerHTML = c.opportunities.map(o => `<li>${o}</li>`).join("");
+    document.getElementById("c-roadmap").innerHTML = c.roadmap.map((step, i) => `
+      <div class="roadmap-step">
+        <div class="step-num">${i + 1}</div>
+        <div class="step-text">${step}</div>
+      </div>`).join("");
+    document.getElementById("c-salary").textContent = c.salaryRange;
+    document.getElementById("c-streams").innerHTML = c.streams.map(s => `<span class="category-card tag" style="margin: 0 4px 4px 0; display:inline-block;">${s}</span>`).join("");
+    document.getElementById("c-advice").textContent = c.advice;
+  }
+</script>
+</body>
+</html>

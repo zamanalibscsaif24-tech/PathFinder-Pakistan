@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Stories — PathFinder Pakistan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">PF</div>
+      <div class="brand-text">
+        <span class="title">PathFinder Pakistan</span>
+        <span class="subtitle">Career Guidance Platform</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="careers.html">Career Explorer</a></li>
+        <li><a href="quiz.html">Career Quiz</a></li>
+        <li><a href="stories.html" class="active">Student Stories</a></li>
+      </ul>
+    </nav>
+    <a href="quiz.html" class="nav-cta">Start Quiz</a>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Real Experiences</span>
+    <h1>Student Stories</h1>
+    <p>Career journeys, mistakes and advice — shared by students who've already walked this path.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="story-intro-box">
+      <p style="margin:0; color: var(--text-muted); font-size: 14.5px;">Have a story to share? Submissions are reviewed before publishing. Email <strong>zamanali.dev1@gmail.com</strong> with your journey, mistakes you made, and advice for juniors.</p>
+    </div>
+    <div class="grid-3" id="all-stories"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="disclaimer">
+      Disclaimer: Stories shared here reflect individual student experiences and are not guarantees of similar outcomes. © 2026 PathFinder Pakistan.
+      <br><br>Designed &amp; developed by <strong style="color:#C9D3E0;">Zamsha Developers</strong> — Contact: <a href="mailto:zamanali.dev1@gmail.com" style="color:#C9D3E0;">zamanali.dev1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const stories = [
+    { name: "Ayesha K.", meta: "ICS → BS Software Engineering, FAST NU", text: "I switched from wanting to do CA to ICS in 11th grade after realizing I loved logic more than numbers. It felt risky changing direction mid-Intermediate, but it was the right call.", mistake: "I spent too long worrying about what relatives would think instead of researching the field myself.", advice: "Don't choose a stream just because your friends did. Research the actual day-to-day work first." },
+    { name: "Hamza R.", meta: "Pre-Medical → MBBS, Dow University", text: "MDCAT prep was harder than I expected. The syllabus is huge and competition is intense across the whole country.", mistake: "I waited until 2nd year Intermediate to start serious MDCAT prep — that cost me months I didn't need to lose.", advice: "Start MDCAT prep early. Even light, consistent revision from 1st year helps a lot by 2nd year." },
+    { name: "Sana M.", meta: "I.Com → Chartered Accountant (ICAP)", text: "Everyone told me CA only suits 'genius' students. That's not true — consistency mattered more than raw talent during my articleship.", mistake: "I underestimated how demanding articleship hours would be alongside CAF exams.", advice: "CA is tough but very achievable with consistent effort and good time management — not just intelligence." },
+    { name: "Bilal A.", meta: "Pre-Engineering → BS Civil Engineering, NUST", text: "I picked Civil Engineering because my father is one, but I genuinely grew to love structural design once I started actual coursework.", mistake: "I didn't get any site exposure until my 3rd year — earlier hands-on experience would've clarified my interest sooner.", advice: "Try to visit a construction site or shadow an engineer even before choosing your major. It makes the decision much clearer." },
+    { name: "Mahnoor T.", meta: "ICS → BS Data Science, Sukkur IBA", text: "I almost picked straight Computer Science out of habit, but a career quiz similar to this one nudged me toward Data Science, which suited my love for statistics far better.", mistake: "I assumed Data Science didn't need strong math — it does, and I had to catch up in my first semester.", advice: "Don't assume any tech field skips fundamentals. Strengthen your math and stats early, regardless of specialization." },
+    { name: "Zoya F.", meta: "FA → Graphic Design, NCA Lahore", text: "Choosing FA over science felt like a 'lesser' choice to relatives, but it let me focus on building a strong design portfolio from 1st year itself.", mistake: "I undercharged for freelance work early on because I didn't know my own value yet.", advice: "Your stream doesn't define your worth. Build a portfolio early and don't be afraid to charge fairly for your skill." }
+  ];
+
+  document.getElementById("all-stories").innerHTML = stories.map(s => `
+    <div class="story-card">
+      <div class="name">${s.name}</div>
+      <div class="meta">${s.meta}</div>
+      <p>"${s.text}"</p>
+      <span class="label">Mistake I Made</span>
+      <p>${s.mistake}</p>
+      <span class="label">Advice for Juniors</span>
+      <p>${s.advice}</p>
+    </div>
+  `).join("");
+</script>
+</body>
+</html>

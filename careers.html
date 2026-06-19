@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Explorer — PathFinder Pakistan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">PF</div>
+      <div class="brand-text">
+        <span class="title">PathFinder Pakistan</span>
+        <span class="subtitle">Career Guidance Platform</span>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="careers.html" class="active">Career Explorer</a></li>
+        <li><a href="quiz.html">Career Quiz</a></li>
+        <li><a href="stories.html">Student Stories</a></li>
+      </ul>
+    </nav>
+    <a href="quiz.html" class="nav-cta">Start Quiz</a>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Career Explorer</span>
+    <h1>Browse Careers by Stream</h1>
+    <p>Detailed, structured guidance on education paths, universities, roadmaps and salary expectations in Pakistan.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-stream="All">All Careers</button>
+      <button class="filter-btn" data-stream="Pre-Medical">Pre-Medical</button>
+      <button class="filter-btn" data-stream="Pre-Engineering">Pre-Engineering</button>
+      <button class="filter-btn" data-stream="ICS">ICS</button>
+      <button class="filter-btn" data-stream="I.Com">I.Com</button>
+      <button class="filter-btn" data-stream="FA">FA</button>
+    </div>
+    <div class="grid-3" id="career-grid"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>PathFinder Pakistan</h4>
+        <p>A career guidance platform built to help Intermediate students in Pakistan make informed, confident decisions about their future.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="careers.html">Career Explorer</a></li>
+          <li><a href="quiz.html">Career Quiz</a></li>
+          <li><a href="stories.html">Student Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Streams</h4>
+        <ul>
+          <li><a href="careers.html?stream=Pre-Medical">Pre-Medical</a></li>
+          <li><a href="careers.html?stream=Pre-Engineering">Pre-Engineering</a></li>
+          <li><a href="careers.html?stream=ICS">ICS</a></li>
+          <li><a href="careers.html?stream=I.Com">I.Com / FA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      Disclaimer: PathFinder Pakistan provides general career guidance for informational purposes only. Salary figures and university lists are approximate and may change. © 2026 PathFinder Pakistan.
+      <br><br>Designed &amp; developed by <strong style="color:#C9D3E0;">Zamsha Developers</strong> — Contact: <a href="mailto:zamanali.dev1@gmail.com" style="color:#C9D3E0;">zamanali.dev1@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/careers-data.js"></script>
+<script>
+  const grid = document.getElementById("career-grid");
+  const params = new URLSearchParams(window.location.search);
+  const initialStream = params.get("stream") || "All";
+
+  function render(stream) {
+    const list = stream === "All" ? CAREERS : CAREERS.filter(c => c.streams.includes(stream));
+    grid.innerHTML = list.map(c => `
+      <div class="career-card">
+        <div class="card-top">
+          <span class="category">${c.category}</span>
+          <h3>${c.name}</h3>
+        </div>
+        <div class="card-body">
+          <p>${c.summary}</p>
+          <div class="salary">Salary: ${c.salaryRange.split(';')[0]}</div>
+          <a href="career.html?id=${c.id}" class="view-link">View Career Guide</a>
+        </div>
+      </div>
+    `).join("") || `<p style="color:#5A6472;">No careers found for this stream yet.</p>`;
+  }
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    if (btn.dataset.stream === initialStream) btn.classList.add("active");
+    else btn.classList.remove("active");
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render(btn.dataset.stream);
+    });
+  });
+
+  render(initialStream);
+</script>
+</body>
+</html>
